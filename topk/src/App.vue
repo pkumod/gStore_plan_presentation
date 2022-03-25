@@ -1,8 +1,9 @@
 <template>
     <a-layout id="components-layout-demo-top-side">
         <a-layout-header class="header">
-            <div class="logo"><img src="./assets/logo.png"/>
-                TOP-K
+            <div class="logo">
+<!--                <img src="./assets/logo.png"/>-->
+                gTop
             </div>
             <div class="nav">
                 <span>Home</span>
@@ -13,7 +14,7 @@
         </a-layout-header>
         <a-layout-content style="padding: 0 50px;">
             <a-layout style="padding: 24px; background: #fff; min-height: calc(100vh - 64px - 69px)">
-                <h1 class="title">Top-K Query Optimization</h1>
+                <h1 class="title">gTop Query Interface</h1>
                 <div class=""></div>
 <!--                <a-textarea-->
 <!--                    style="margin-bottom: 24px"-->
