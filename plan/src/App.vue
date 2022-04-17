@@ -3,7 +3,7 @@
         <a-layout-header class="header">
             <div class="logo">
 <!--                <img src="./assets/logo.png"/>-->
-                gTop
+                gStore-PlanOptimizer
             </div>
             <div class="nav">
                 <span>Home</span>
@@ -14,7 +14,7 @@
         </a-layout-header>
         <a-layout-content style="padding: 0 50px;">
             <a-layout style="padding: 24px; background: #fff; min-height: calc(100vh - 64px - 69px)">
-                <h1 class="title">gTop Query Interface</h1>
+                <h1 class="title">Query Interface</h1>
                 <div class=""></div>
 <!--                <a-textarea-->
 <!--                    style="margin-bottom: 24px"-->
@@ -30,7 +30,8 @@
                 <a-divider v-show="show_result">Results</a-divider>
                 <a-row>
                     <a-col :span="8">
-                        <JSONResult :data="result" :loading="loading" v-show="show_result" class="result-json"/>
+                        <plan-tree :plan="plan" v-show="show_result" class="result-plan" ref="tree"/>
+<!--                        <JSONResult :data="result" :loading="loading" v-show="show_result" class="result-json"/>-->
                     </a-col>
                     <a-col :span="16">
                         <a-table v-show="show_result" :columns="getCol" :data-source="getData" class="result-table">
@@ -38,8 +39,9 @@
                         </a-table>
                     </a-col>
                 </a-row>
-
-
+<!--                <a-row>-->
+<!--                    -->
+<!--                </a-row>-->
             </a-layout>
         </a-layout-content>
         <a-layout-footer style="text-align: center">
@@ -50,10 +52,11 @@
 
 <script>
 import axios from 'axios'
-import JSONResult from './components/result.json'
+// import JSONResult from './components/result.json'
+import PlanTree from './components/planTree'
 import Yasqe from '@triply/yasqe'
 export default {
-    components: {JSONResult},
+    components: {PlanTree},
     data() {
         return {
             query: '',
@@ -61,6 +64,7 @@ export default {
             show_result: false,
             result: {},
             yasqe: null,
+            plan: ''
         }
     },
     computed: {
@@ -92,8 +96,10 @@ export default {
             }).then(res => {
                 console.log(res)
                 this.result = res.data
+                this.plan = res.data.Plan
                 this.loading = false
                 this.show_result = true
+                this.$nextTick(() => this.$refs.tree.$emit('renderPlan'))
             })
         },
         initYasqe() {
@@ -124,7 +130,7 @@ export default {
     font-size: 1.5em;
     font-weight: bold;
     font-style: italic;
-    max-width: 200px;
+    max-width: 300px;
     display: inline-block;
 }
 
