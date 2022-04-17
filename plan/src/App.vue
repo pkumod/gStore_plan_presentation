@@ -165,4 +165,8 @@ export default {
 .result-json {
     overflow-x: scroll;
 }
+
+.result-table {
+    overflow-x: auto;
+}
 </style>

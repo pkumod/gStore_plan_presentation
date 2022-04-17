@@ -121,7 +121,7 @@ export default {
             }).run()
             cy.elements().lock()
             setTimeout(() => {
-                cy.animate({fit: {eles: cy.elements(), padding: 50}})
+                cy.animate({fit: {eles: cy.elements(), padding: 20}})
             }, 500)
         },
     },
