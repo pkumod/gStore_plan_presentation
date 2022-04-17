@@ -7,11 +7,11 @@ gStore_config = {
     'port': '5009',
     'user': 'root',
     'password': '123456',
-    'database': 'num'
+    'database': 'lubm'
 }
 gc =  GstoreConnector(gStore_config['ip'], gStore_config['port'], gStore_config['user'], gStore_config['password'])
 
-app = Flask(__name__, static_url_path='', static_folder='./topk/dist/')
+app = Flask(__name__, static_url_path='', static_folder='./plan/dist/')
 app.config['threaded'] = True
 CORS(app)
 
