@@ -31,7 +31,7 @@ export default {
                     {
                         selector: 'node',
                         style: {
-                            'background-color': '#666',
+                            'background-color': '#FF8C05',
                             'label': 'data(label)',
                         },
                     },
@@ -47,13 +47,20 @@ export default {
                     {
                         selector: '.subtree',
                         style: {
-                            'shape': 'triangle',
+                            'shape': 'round-rectangle',
+                            'background-color': '#4499EE',
                             'width': 35,
                             'height': 35,
                             'text-valign': 'bottom',
                             'text-halign': 'center',
                         },
                     },
+                    {
+                        selector: '.BJ',
+                        style: {
+                            'background-color': '#43A102',
+                        },
+                    }
                 ],
                 layout: {
                     name: 'breadthfirst',
@@ -79,7 +86,9 @@ export default {
             let BJ_count = 0
             for (let i = 0; i < node_list.length; i++) {
                 let label = node_list[i]
+                let BJ_flag = false
                 if (label === 'BJ') {
+                    BJ_flag = true
                     label = 'BJ' + (BJ_count++)
                 }
                 switch (node_degree_list[i]) {
@@ -105,7 +114,7 @@ export default {
                         addEdge(now_node, label)
                         break
                     case '2':
-                        addNode(label, {label: label, treepos: 'left', classes: 'subtree'})
+                        addNode(label, {label: label, treepos: 'left', classes: BJ_flag ? 'subtree BJ' : 'subtree'})
                         cy.$('#' + tmp_node).data('treepos', 'left')
                         cy.$('#' + now_node).data('treepos', 'right')
                         addEdge(label, now_node)
