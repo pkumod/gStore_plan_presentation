@@ -29,11 +29,11 @@
                 </a-button>
                 <a-divider v-show="show_result">Results</a-divider>
                 <a-row>
-                    <a-col :span="8">
+                    <a-col :span="16">
                         <plan-tree :plan="plan" v-show="show_result" class="result-plan" ref="tree"/>
 <!--                        <JSONResult :data="result" :loading="loading" v-show="show_result" class="result-json"/>-->
                     </a-col>
-                    <a-col :span="16">
+                    <a-col :span="8">
                         <a-table v-show="show_result" :columns="getCol" :data-source="getData" class="result-table">
                             <a slot="name" slot-scope="text">{{ text }}</a>
                         </a-table>
