@@ -144,7 +144,7 @@ export default {
             console.log('Variable number: ' + variable_number)
             const node_degree_list = plan[1].split('')
             console.log('Degree list: ' + node_degree_list)
-            const node_list = plan[0].slice(1, -variable_number).split(/\?+/)
+            const node_list = plan[0].slice(1).split(/\?+/)
             console.log('Node list: ' + node_list)
             const plan_true_card_num = plan[2].split(',')
             const plan_est_card_num = plan[3].split(',')
@@ -152,17 +152,16 @@ export default {
 
             let now_node = null
             let tmp_node = null
-            let BJ_count = 0
             for (let i = 0; i < node_list.length; i++) {
                 let label = node_list[i]
                 let BJ_flag = false
-                if (label === 'BJ') {
+                if (label === 'BJ')
                     BJ_flag = true
-                    label = 'BJ' + (BJ_count++)
-                }
+                label += '---' + getUid()
+                console.log(label)
                 switch (node_degree_list[i]) {
                     case '0':
-                        addNode(label, {label: label, treepos: 'left'})
+                        addNode(label, {label: label.split('---')[0], treepos: 'left'})
                         if (now_node == null)
                             now_node = 'p_' + label
                         else {
@@ -173,7 +172,7 @@ export default {
                         addEdge(now_node, label)
                         break
                     case '1':
-                        addNode(label, {label: label, treepos: 'right'})
+                        addNode(label, {label: label.split('---')[0], treepos: 'right'})
                         if (cy.$('#' + now_node).rightChild().length === 1) {
                             cy.$('#' + now_node).data('treepos', 'left')
                             addNode('p_' + now_node, {treepos: 'left', classes: 'subtree'})
@@ -183,7 +182,11 @@ export default {
                         addEdge(now_node, label)
                         break
                     case '2':
-                        addNode(label, {label: label, treepos: 'left', classes: BJ_flag ? 'subtree BJ' : 'subtree'})
+                        addNode(label, {
+                            label: label.split('---')[0],
+                            treepos: 'left',
+                            classes: BJ_flag ? 'subtree BJ' : 'subtree',
+                        })
                         cy.$('#' + tmp_node).data('treepos', 'left')
                         cy.$('#' + now_node).data('treepos', 'right')
                         addEdge(label, now_node)
@@ -192,7 +195,8 @@ export default {
                         now_node = label
                         break
                 }
-                this.renderPlanDetail(plan_true_card_num[i], plan_est_card_num[i], plan_exe_time[i], i === 0 ? label : cy.$('#' + label).predecessors('node')[0].data('id'))
+                console.log(node_degree_list[i])
+                this.renderPlanDetail(plan_true_card_num[i], plan_est_card_num[i], plan_exe_time[i], node_degree_list[i] === '1' ? cy.$('#' + label).predecessors('node')[0].data('id') : label)
             }
             cy.layout({
                 name: 'tree',
@@ -227,6 +231,16 @@ function addEdge(source, target) {
         },
     })
 }
+
+function getUid() {
+    let s = []
+    let hexDigits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for (let i = 0; i < 12; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
+    }
+    return s.join('')
+}
+
 
 </script>
 
