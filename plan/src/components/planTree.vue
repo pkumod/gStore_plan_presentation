@@ -1,8 +1,14 @@
 <template>
-    <div id="plan-container">
-        <div class="show-detail-panel">
-            Show Plan Detail:
-            <a-switch default-checked @change="switchDetailTip"/>
+    <div>
+        <div class="mask" v-if="msg">
+            <div class="msg">{{msg}}</div>
+        </div>
+        <div class="plan-container" ref="container">
+            <div class="show-detail-panel" v-if="enable_tip">
+                Show Plan Detail:
+                <a-switch default-checked @change="switchDetailTip"/>
+                <br/>
+            </div>
         </div>
     </div>
 </template>
@@ -21,7 +27,7 @@ cytoscape.use(dagre)
 
 export default {
     name: 'PlanTree',
-    props: ['plan'],
+    props: ['plan', 'enable_tip', 'msg'],
     data() {
         return {
             tips: {},
@@ -43,8 +49,8 @@ export default {
                     this.tips[tip].hide()
         },
         initCy() {
-            window.cy = cytoscape({
-                container: document.getElementById('plan-container'),
+            this.cy = cytoscape({
+                container: this.$refs['container'],
                 // userZoomingEnabled: false,
                 // userPanningEnabled: false,
                 elements: [],
@@ -91,7 +97,7 @@ export default {
             })
         },
         renderPlanDetail(plan_true_card_num, plan_est_card_num, plan_exe_time, label) {
-            let node = window.cy.nodes().filter(node => node.data('id') === label)
+            let node = this.cy.nodes().filter(node => node.data('id') === label)
             let ref = node.popperRef()
             let dummyDomEle = document.createElement('div')
             let tip = tippy(dummyDomEle, {
@@ -120,7 +126,7 @@ export default {
                         },
                     ],
                 },
-                appendTo: this.$el,
+                appendTo: document.body,
                 content: () => {
                     let content = document.createElement('div')
                     content.innerHTML = `Plan true card num: ${plan_true_card_num}<br>Plan est card num: ${plan_est_card_num}<br>Plan exe time: ${plan_exe_time} ms`
@@ -133,7 +139,7 @@ export default {
         },
         renderPlan() {
             let plan = this.plan.split(';')
-            let cy = window.cy
+            let cy = this.cy
             cy.elements().remove()
             cy.reset()
             for (let tip in this.tips) {
@@ -161,42 +167,43 @@ export default {
                 console.log(label)
                 switch (node_degree_list[i]) {
                     case '0':
-                        addNode(label, {label: label.split('---')[0], treepos: 'left'})
+                        addNode(label, {label: label.split('---')[0], treepos: 'left'}, cy)
                         if (now_node == null)
                             now_node = 'p_' + label
                         else {
                             tmp_node = now_node
                             now_node = 'p_' + label
                         }
-                        addNode(now_node, {treepos: 'left', classes: 'subtree'})
-                        addEdge(now_node, label)
+                        addNode(now_node, {treepos: 'left', classes: 'subtree'}, cy)
+                        addEdge(now_node, label, cy)
                         break
                     case '1':
-                        addNode(label, {label: label.split('---')[0], treepos: 'right'})
+                        addNode(label, {label: label.split('---')[0], treepos: 'right'}, cy)
                         if (cy.$('#' + now_node).rightChild().length === 1) {
                             cy.$('#' + now_node).data('treepos', 'left')
-                            addNode('p_' + now_node, {treepos: 'left', classes: 'subtree'})
-                            addEdge('p_' + now_node, now_node)
+                            addNode('p_' + now_node, {treepos: 'left', classes: 'subtree'}, cy)
+                            addEdge('p_' + now_node, now_node, cy)
                             now_node = 'p_' + now_node
                         }
-                        addEdge(now_node, label)
+                        addEdge(now_node, label, cy)
                         break
                     case '2':
                         addNode(label, {
                             label: label.split('---')[0],
                             treepos: 'left',
                             classes: BJ_flag ? 'subtree BJ' : 'subtree',
-                        })
+                        }, cy)
                         cy.$('#' + tmp_node).data('treepos', 'left')
                         cy.$('#' + now_node).data('treepos', 'right')
-                        addEdge(label, now_node)
-                        addEdge(label, tmp_node)
+                        addEdge(label, now_node, cy)
+                        addEdge(label, tmp_node, cy)
                         tmp_node = null
                         now_node = label
                         break
                 }
                 console.log(node_degree_list[i])
-                this.renderPlanDetail(plan_true_card_num[i], plan_est_card_num[i], plan_exe_time[i], node_degree_list[i] === '1' ? cy.$('#' + label).predecessors('node')[0].data('id') : label)
+                if (this.enable_tip)
+                    this.renderPlanDetail(plan_true_card_num[i], plan_est_card_num[i], plan_exe_time[i], node_degree_list[i] === '1' ? cy.$('#' + label).predecessors('node')[0].data('id') : label)
             }
             cy.layout({
                 name: 'tree',
@@ -210,8 +217,8 @@ export default {
     },
 }
 
-function addNode(id, options) {
-    window.cy.add({
+function addNode(id, options, cy) {
+    cy.add({
         group: 'nodes',
         data: {
             id: id,
@@ -222,8 +229,8 @@ function addNode(id, options) {
     })
 }
 
-function addEdge(source, target) {
-    window.cy.add({
+function addEdge(source, target, cy) {
+    cy.add({
         group: 'edges',
         data: {
             source: source,
@@ -245,7 +252,27 @@ function getUid() {
 </script>
 
 <style>
-#plan-container {
+.mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 200000;
+    background: rgba(255, 255, 255, .4);
+}
+
+.msg {
+    position: absolute;
+    top: 50%;
+    height: 55px;
+    padding: 10px;
+    line-height: 1;
+    background: #fff;
+    font-size: 35px;
+    text-align: center;
+    width: 100%;
+}
+
+.plan-container {
     height: 700px;
     width: 100%;
     position: relative;

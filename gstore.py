@@ -74,7 +74,7 @@ class GstoreConnector:
             strUrl = "?operation=build&db_name=" + db_name + "&db_path=" + db_path + "&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"build\", \"db_name\": \"' + db_name + '\", \"db_path\": \"' + db_path + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "build", "db_name": "' + db_name + '", "db_path": "' + db_path + '", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -83,7 +83,7 @@ class GstoreConnector:
             strUrl = "?operation=check"
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"check\"}'
+            strPost = '{"operation": "check"}'
             res = self.Post(strPost)
         return res
 
@@ -92,7 +92,7 @@ class GstoreConnector:
             strUrl = "?operation=load&db_name=" + db_name + "&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"load\", \"db_name\": \"' + db_name + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "load", "db_name": "' + db_name + '", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -101,7 +101,7 @@ class GstoreConnector:
             strUrl = "?operation=monitor&db_name=" + db_name + "&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"monitor\", \"db_name\": \"' + db_name + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "monitor", "db_name": "' + db_name + '", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -110,7 +110,7 @@ class GstoreConnector:
             strUrl = "?operation=unload&db_name=" + db_name + "&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"unload\", \"db_name\": \"' + db_name + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "unload", "db_name": "' + db_name + '", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -123,9 +123,9 @@ class GstoreConnector:
             res = self.Get(strUrl)
         elif request_type == 'POST':
             if is_backup:
-                strPost = '{\"operation\": \"drop\", \"db_name\": \"' + db_name + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"is_backup\": \"true\"}'
+                strPost = '{"operation": "drop", "db_name": "' + db_name + '", "username": "' + self.username + '", "password": "' + self.password + '", "is_backup": "true"}'
             else:
-                strPost = '{\"operation\": \"drop\", \"db_name\": \"' + db_name + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"is_backup\": \"false\"}'
+                strPost = '{"operation": "drop", "db_name": "' + db_name + '", "username": "' + self.username + '", "password": "' + self.password + '", "is_backup": "false"}'
             res = self.Post(strPost)
         return res
 
@@ -134,7 +134,7 @@ class GstoreConnector:
             strUrl = "?operation=show&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"show\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "show", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -143,7 +143,7 @@ class GstoreConnector:
             strUrl = "?operation=usermanage&type=" + type + "&username=" + self.username + "&password=" + self.password + "&op_username=" + op_username + "&op_password=" + op_password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"usermanage\", \"type\": \"' + type + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"op_username\": \"' + op_username + '\", \"op_password\": \"' + op_password + '\"}'
+            strPost = '{"operation": "usermanage", "type": "' + type + '", "username": "' + self.username + '", "password": "' + self.password + '", "op_username": "' + op_username + '", "op_password": "' + op_password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -152,7 +152,7 @@ class GstoreConnector:
             strUrl = "?operation=showuser&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"showuser\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "showuser", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -161,7 +161,7 @@ class GstoreConnector:
             strUrl = "?operation=userprivilegemanage&type=" + type + "&username=" + self.username + "&password=" + self.password + "&op_username=" + op_username + "&privileges=" + privileges + "&db_name=" + db_name
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"userprivilegemanage\", \"type\": \"' + type + '\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"op_username\": \"' + op_username + '\", \"privileges\": \"' + privileges + '\", \"db_name\": \"' + db_name + '\"}'
+            strPost = '{"operation": "userprivilegemanage", "type": "' + type + '", "username": "' + self.username + '", "password": "' + self.password + '", "op_username": "' + op_username + '", "privileges": "' + privileges + '", "db_name": "' + db_name + '"}'
             res = self.Post(strPost)
         return res
 
@@ -170,7 +170,7 @@ class GstoreConnector:
             strUrl = "?operation=backup&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&backup_path=" + backup_path
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"backup\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"backup_path\": \"' + backup_path + '\"}'
+            strPost = '{"operation": "backup", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "backup_path": "' + backup_path + '"}'
             res = self.Post(strPost)
         return res
 
@@ -179,7 +179,7 @@ class GstoreConnector:
             strUrl = "?operation=restore&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&backup_path=" + backup_path
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"restore\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"backup_path\": \"' + backup_path + '\"}'
+            strPost = '{"operation": "restore", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "backup_path": "' + backup_path + '"}'
             res = self.Post(strPost)
         return res
 
@@ -188,7 +188,16 @@ class GstoreConnector:
             strUrl = "?operation=query&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&format=" + format + "&sparql=" + sparql
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"query\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"format\": \"' + format + '\", \"sparql\": \"' + sparql + '\"}'
+            strPost = '{"operation": "query", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "format": "' + format + '", "sparql": "' + sparql + '"}'
+            res = self.Post(strPost)
+        return res
+
+    def query_opt(self, db_name, format, sparql, plan, request_type='GET'):
+        if request_type == 'GET':
+            strUrl = "?operation=query&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&format=" + format + "&sparql=" + sparql + "&plan=" + plan
+            res = self.Get(strUrl)
+        elif request_type == 'POST':
+            strPost = '{"operation": "query", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "format": "' + format + '", "sparql": "' + sparql + '", "plan": "' + plan + '"}'
             res = self.Post(strPost)
         return res
 
@@ -197,7 +206,7 @@ class GstoreConnector:
             strUrl = "?operation=query&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&format=" + format + "&sparql=" + sparql
             self.fGet(strUrl, filename)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"query\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"format\": \"' + format + '\", \"sparql\": \"' + sparql + '\"}'
+            strPost = '{"operation": "query", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "format": "' + format + '", "sparql": "' + sparql + '"}'
             self.fPost(strPost, filename)
         return
 
@@ -206,7 +215,7 @@ class GstoreConnector:
             strUrl = "?operation=export&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&db_path=" + db_path
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"export\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"db_path\": \"' + db_path + '\"}'
+            strPost = '{"operation": "export", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "db_path": "' + db_path + '"}'
             res = self.Post(strPost)
         return res
 
@@ -215,7 +224,7 @@ class GstoreConnector:
             strUrl = "?operation=login&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"login\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "login", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -224,7 +233,7 @@ class GstoreConnector:
             strUrl = "?operation=begin&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&isolevel=" + isolevel
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"begin\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"isolevel\": \"' + isolevel + '\"}'
+            strPost = '{"operation": "begin", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "isolevel": "' + isolevel + '"}'
             res = self.Post(strPost)
         return res
 
@@ -233,7 +242,7 @@ class GstoreConnector:
             strUrl = "?operation=tquery&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&tid=" + tid + "&sparql=" + sparql
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"tquery\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"tid\": \"' + tid + '\", \"sparql\": \"' + sparql + '\"}'
+            strPost = '{"operation": "tquery", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "tid": "' + tid + '", "sparql": "' + sparql + '"}'
             res = self.Post(strPost)
         return res
 
@@ -242,7 +251,7 @@ class GstoreConnector:
             strUrl = "?operation=commit&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&tid=" + tid
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"commit\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"tid\": \"' + tid + '\"}'
+            strPost = '{"operation": "commit", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "tid": "' + tid + '"}'
             res = self.Post(strPost)
         return res
 
@@ -251,7 +260,7 @@ class GstoreConnector:
             strUrl = "?operation=rollback&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name + "&tid=" + tid
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"rollback\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\", \"tid\": \"' + tid + '\"}'
+            strPost = '{"operation": "rollback", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '", "tid": "' + tid + '"}'
             res = self.Post(strPost)
         return res
 
@@ -260,7 +269,7 @@ class GstoreConnector:
             strUrl = "?operation=txnlog&username=" + self.username + "&password=" + self.password
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"txnlog\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\"}'
+            strPost = '{"operation": "txnlog", "username": "' + self.username + '", "password": "' + self.password + '"}'
             res = self.Post(strPost)
         return res
 
@@ -269,6 +278,6 @@ class GstoreConnector:
             strUrl = "?operation=checkpoint&username=" + self.username + "&password=" + self.password + "&db_name=" + db_name
             res = self.Get(strUrl)
         elif request_type == 'POST':
-            strPost = '{\"operation\": \"checkpoint\", \"username\": \"' + self.username + '\", \"password\": \"' + self.password + '\", \"db_name\": \"' + db_name + '\"}'
+            strPost = '{"operation": "checkpoint", "username": "' + self.username + '", "password": "' + self.password + '", "db_name": "' + db_name + '"}'
             res = self.Post(strPost)
         return res
