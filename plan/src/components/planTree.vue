@@ -80,12 +80,18 @@ export default {
                             'height': 35,
                             'text-valign': 'bottom',
                             'text-halign': 'center',
+                            'text-margin-y': -22,
+                            'color': '#fff',
+                            'font-size': 10
                         },
                     },
                     {
                         selector: '.BJ',
                         style: {
                             'background-color': '#43A102',
+                            'text-margin-y': -25,
+                            'color': '#fff',
+                            'font-size': 18
                         },
                     },
                 ],
@@ -129,7 +135,13 @@ export default {
                 appendTo: document.body,
                 content: () => {
                     let content = document.createElement('div')
-                    content.innerHTML = `Plan true card num: ${plan_true_card_num}<br>Plan est card num: ${plan_est_card_num}<br>Plan exe time: ${plan_exe_time} ms`
+                    content.innerHTML = ""
+                    if(plan_true_card_num !== '' && plan_true_card_num !== undefined && plan_true_card_num!== "undefined")
+                        content.innerHTML += `Plan true card num: ${plan_true_card_num}`
+                    if(plan_est_card_num !== '' && plan_est_card_num !== undefined && plan_est_card_num!== "undefined")
+                        content.innerHTML += `<br>Plan est card num: ${plan_est_card_num}`
+                    if(plan_exe_time !== '' && plan_exe_time !== undefined && plan_exe_time!== "undefined")
+                        content.innerHTML += `<br>Plan execute num: ${plan_exe_time} ms`
                     return content
                 },
             })
@@ -174,14 +186,14 @@ export default {
                             tmp_node = now_node
                             now_node = 'p_' + label
                         }
-                        addNode(now_node, {treepos: 'left', classes: 'subtree'}, cy)
+                        addNode(now_node, {label: "WCO", treepos: 'left', classes: 'subtree'}, cy)
                         addEdge(now_node, label, cy)
                         break
                     case '1':
                         addNode(label, {label: label.split('---')[0], treepos: 'right'}, cy)
                         if (cy.$('#' + now_node).rightChild().length === 1) {
                             cy.$('#' + now_node).data('treepos', 'left')
-                            addNode('p_' + now_node, {treepos: 'left', classes: 'subtree'}, cy)
+                            addNode('p_' + now_node, {label: "WCO", treepos: 'left', classes: 'subtree'}, cy)
                             addEdge('p_' + now_node, now_node, cy)
                             now_node = 'p_' + now_node
                         }
