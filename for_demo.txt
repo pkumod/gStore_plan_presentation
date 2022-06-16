@@ -1,0 +1,7 @@
+
+For plan detail:
+	planTree.vue::289 -> 1000px
+				  222 -> parentDistance: 70,
+				  223 -> siblingDistance: 100,
+	App.vue::32 -> 22
+			 42 -> 2

@@ -137,11 +137,11 @@ export default {
                     let content = document.createElement('div')
                     content.innerHTML = ""
                     if(plan_true_card_num !== '' && plan_true_card_num !== undefined && plan_true_card_num!== "undefined")
-                        content.innerHTML += `Plan true card num: ${plan_true_card_num}`
+                        content.innerHTML += `True cardinality: ${plan_true_card_num}`
                     if(plan_est_card_num !== '' && plan_est_card_num !== undefined && plan_est_card_num!== "undefined")
-                        content.innerHTML += `<br>Plan est card num: ${plan_est_card_num}`
+                        content.innerHTML += `<br>Est cardinality: ${plan_est_card_num}`
                     if(plan_exe_time !== '' && plan_exe_time !== undefined && plan_exe_time!== "undefined")
-                        content.innerHTML += `<br>Plan execute num: ${plan_exe_time} ms`
+                        content.innerHTML += `<br>Execution time: ${plan_exe_time} ms`
                     return content
                 },
             })

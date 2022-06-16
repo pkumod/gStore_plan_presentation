@@ -29,7 +29,7 @@
                 </a-button>
                 <a-divider v-show="show_result">Results</a-divider>
                 <a-row>
-                    <a-col :span="16">
+                    <a-col :span="15">
                         <plan-tree :plan="plan" v-show="show_result" :enable_tip="true" class="result-plan" ref="tree"/>
                         <div v-if="show_result" style="position: absolute; top: 32px;">
                             <br/>
@@ -39,7 +39,7 @@
                         </div>
                         <!--                        <JSONResult :data="result" :loading="loading" v-show="show_result" class="result-json"/>-->
                     </a-col>
-                    <a-col :span="8">
+                    <a-col :span="9">
                         <a-table v-show="show_result" :columns="getCol" :data-source="getData" class="result-table">
                             <a slot="name" slot-scope="text">{{ text }}</a>
                         </a-table>
@@ -132,7 +132,7 @@ export default {
             new_plan_loading: false,
             show_custom_plan_panel: false,
             new_plan_query_loading: false,
-            query_url: "http://localhost:5000/query_opt"
+            query_url: "http://115.27.161.37:5000/query_opt"
         }
     },
     computed: {
