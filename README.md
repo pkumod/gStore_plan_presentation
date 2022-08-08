@@ -1,4 +1,4 @@
-# gStore-topk-demo
+# gStore Plan Optimizer Demonstration
 
 ## Usage
 
